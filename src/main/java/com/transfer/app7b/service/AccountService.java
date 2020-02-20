@@ -1,11 +1,8 @@
 package com.transfer.app7b.service;
 
-import com.google.gson.Gson;
 import com.transfer.app7b.config.AppConfig;
+import com.transfer.app7b.config.JsonBuilder;
 import com.transfer.app7b.domain.dto.AccountDto;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -17,6 +14,7 @@ public class AccountService {
 
     private RestTemplate restTemplate = new RestTemplate();
     private AppConfig appConfig = AppConfig.getInstance();
+    private JsonBuilder<AccountDto> jsonBuilder = new JsonBuilder<>();
 
     private List<AccountDto> accountDtos;
     private static AccountService accountService;
@@ -36,12 +34,14 @@ public class AccountService {
     }
 
     public void fetchAll() {
-            URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "account")
-                    .encode()
-                    .build()
-                    .toUri();
-            AccountDto[] accounts = restTemplate.getForObject(url, AccountDto[].class);
-            accountDtos = Arrays.asList(Optional.ofNullable(accounts).orElse(new AccountDto[0]));
+        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "account")
+                .encode()
+                .build()
+                .toUri();
+        Optional<AccountDto[]> accounts = Optional.ofNullable(restTemplate.getForObject(url, AccountDto[].class));
+        accountDtos = new ArrayList<>(accounts
+                .map(Arrays::asList)
+                .orElse(new ArrayList<>()));
     }
 
     public List<AccountDto> filterByCurrency(String string) {
@@ -59,24 +59,13 @@ public class AccountService {
     }
 
     public void save(AccountDto accountDto) {
-        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "account")
-                .encode()
-                .build()
-                .toUri();
-        restTemplate.postForObject(url, accountDto, Void.class);
+        String url = appConfig.getBackendEndpoint() + "account";
+        restTemplate.postForObject(url, (accountDto), Void.class);
     }
 
     public void update(AccountDto accountDto) {
-        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "account")
-                .encode()
-                .build()
-                .toUri();
-        Gson gson = new Gson();
-        String jsonContent = gson.toJson(accountDto);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> httpEntity = new HttpEntity<>(jsonContent,headers);
-        restTemplate.put(url, httpEntity);
+        String url = appConfig.getBackendEndpoint() + "account";
+        restTemplate.put(url, jsonBuilder.prepareJson(accountDto));
     }
 
     public void delete(long id) {
