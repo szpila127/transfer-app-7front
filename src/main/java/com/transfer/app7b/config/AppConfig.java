@@ -1,17 +1,17 @@
 package com.transfer.app7b.config;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@Component
+@AllArgsConstructor
 public class AppConfig {
     private static  AppConfig appConfig;
+
+    private AppConfig() {
+    }
 
     public static AppConfig getInstance() {
         if (appConfig == null) {
@@ -20,6 +20,5 @@ public class AppConfig {
         return appConfig;
     }
 
-    @Value("${backend.endpoint}")
-    private String backendEndpoint;
+    private String backendEndpoint = "http://localhost:8080/v1/ta7/";
 }

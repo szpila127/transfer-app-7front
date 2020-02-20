@@ -20,9 +20,9 @@ public class AccountDto {
     @JsonProperty
     private String currency;
     @JsonProperty
-    private long userId;
+    private String userId;
 
-    public AccountDto(BigDecimal balance, String currency, long userId) {
+    public AccountDto(BigDecimal balance, String currency, String userId) {
         this.balance = balance;
         this.currency = currency;
         this.userId = userId;
