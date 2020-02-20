@@ -3,6 +3,9 @@ package com.transfer.app7b.service;
 import com.transfer.app7b.config.AppConfig;
 import com.transfer.app7b.config.JsonBuilder;
 import com.transfer.app7b.domain.dto.AccountDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -11,6 +14,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class AccountService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AccountService.class);
 
     private RestTemplate restTemplate = new RestTemplate();
     private AppConfig appConfig = AppConfig.getInstance();
@@ -60,7 +64,11 @@ public class AccountService {
 
     public void save(AccountDto accountDto) {
         String url = appConfig.getBackendEndpoint() + "account";
-        restTemplate.postForObject(url, (accountDto), Void.class);
+        try {
+            restTemplate.postForObject(url, (accountDto), Void.class);
+        } catch (RestClientException e) {
+            LOGGER.error("" + e);
+        }
     }
 
     public void update(AccountDto accountDto) {

@@ -5,26 +5,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AccountDto {
     @JsonProperty
-    private long id;
+    private Long id;
     @JsonProperty
     private BigDecimal balance;
     @JsonProperty
     private String currency;
     @JsonProperty
     private String userId;
-
-    public AccountDto(BigDecimal balance, String currency, String userId) {
-        this.balance = balance;
-        this.currency = currency;
-        this.userId = userId;
-    }
 }

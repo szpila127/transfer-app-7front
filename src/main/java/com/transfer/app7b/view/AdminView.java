@@ -1,7 +1,7 @@
 package com.transfer.app7b.view;
 
 import com.transfer.app7b.domain.dto.AccountDto;
-import com.transfer.app7b.form.AccountForm;
+import com.transfer.app7b.form.AccountAdminForm;
 import com.transfer.app7b.service.AccountService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
@@ -20,7 +20,7 @@ public class AdminView extends VerticalLayout {
     private Label accountsLabel = new Label("ACCOUNTS");
     private TextField filterAccountsById = new TextField();
     private TextField filterAccountsByCurrency = new TextField();
-    private AccountForm accountForm = new AccountForm(this);
+    private AccountAdminForm accountAdminForm = new AccountAdminForm(this);
     private Button addNewAccount = new Button("Add new account");
 
     public AdminView() {
@@ -35,21 +35,29 @@ public class AdminView extends VerticalLayout {
         gridAccount.setColumns("userId", "balance", "currency");
         addNewAccount.addClickListener(event -> {
             gridAccount.asSingleSelect().clear();
-            accountForm.setAccount(new AccountDto());
+            accountAdminForm.saveAccountB.setVisible(true);
+            accountAdminForm.deleteAccountB.setVisible(false);
+            accountAdminForm.updateAccountB.setVisible(false);
+            accountAdminForm.setAccount(new AccountDto());
         });
 
         HorizontalLayout filterFieldsAccount = new HorizontalLayout(filterAccountsById, filterAccountsByCurrency, addNewAccount);
 
-        HorizontalLayout mainContent = new HorizontalLayout(gridAccount, accountForm);
+        HorizontalLayout mainContent = new HorizontalLayout(gridAccount, accountAdminForm);
         mainContent.setSizeFull();
         gridAccount.setSizeFull();
         gridAccount.setHeight("270px");
         add(accountsLabel,filterFieldsAccount, mainContent);
-        accountForm.setAccount(null);
+        accountAdminForm.setAccount(null);
         setSizeFull();
         refreshAccounts();
 
-        gridAccount.asSingleSelect().addValueChangeListener(event -> accountForm.setAccount(gridAccount.asSingleSelect().getValue()));
+        gridAccount.asSingleSelect().addValueChangeListener(event -> {
+            accountAdminForm.saveAccountB.setVisible(false);
+            accountAdminForm.deleteAccountB.setVisible(true);
+            accountAdminForm.updateAccountB.setVisible(true);
+            accountAdminForm.setAccount(gridAccount.asSingleSelect().getValue());
+        });
     }
 
     private void updateAccountById() {
