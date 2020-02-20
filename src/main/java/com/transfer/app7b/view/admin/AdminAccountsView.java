@@ -1,29 +1,29 @@
-package com.transfer.app7b.view;
+package com.transfer.app7b.view.admin;
 
 import com.transfer.app7b.domain.dto.AccountDto;
 import com.transfer.app7b.form.AccountAdminForm;
 import com.transfer.app7b.service.AccountService;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
 
-@Route(value = "admin")
-public class AdminView extends VerticalLayout {
+@Route(value = "admin/accounts")
+public class AdminAccountsView extends VerticalLayout {
 
+    private Button homeButton = new Button("HOME");
     private AccountService accountService = AccountService.getInstance();
     private Grid<AccountDto> gridAccount = new Grid<>(AccountDto.class);
-    private Label accountsLabel = new Label("ACCOUNTS");
     private TextField filterAccountsById = new TextField();
     private TextField filterAccountsByCurrency = new TextField();
     private AccountAdminForm accountAdminForm = new AccountAdminForm(this);
-    private Button addNewAccount = new Button("Add new account");
 
-    public AdminView() {
+
+    public AdminAccountsView() {
         filterAccountsById.setPlaceholder("Filter by user ID...");
         filterAccountsById.setClearButtonVisible(true);
         filterAccountsById.setValueChangeMode(ValueChangeMode.EAGER);
@@ -34,6 +34,11 @@ public class AdminView extends VerticalLayout {
         filterAccountsByCurrency.addValueChangeListener(e -> updateAccountByCurrency());
         gridAccount.setColumns("userId", "balance", "currency");
         gridAccount.getColumnByKey("userId").setHeader("User ID");
+        homeButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        homeButton.addClickListener(event -> {
+            homeButton.getUI().ifPresent(ui -> ui.navigate("home"));
+        });
+        Button addNewAccount = new Button("Add new account");
         addNewAccount.addClickListener(event -> {
             gridAccount.asSingleSelect().clear();
             accountAdminForm.saveAccountB.setVisible(true);
@@ -41,14 +46,29 @@ public class AdminView extends VerticalLayout {
             accountAdminForm.updateAccountB.setVisible(false);
             accountAdminForm.setAccount(new AccountDto());
         });
-
         HorizontalLayout filterFieldsAccount = new HorizontalLayout(filterAccountsById, filterAccountsByCurrency, addNewAccount);
+
+        Button usersButton = new Button("USERS");
+        usersButton.addClickListener(event -> {
+            homeButton.getUI().ifPresent(ui -> ui.navigate("admin/users"));
+        });
+        Button accountsButton = new Button("ACCOUNTS");
+        accountsButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        Button transactionsButton = new Button("TRANSACTIONS");
+        transactionsButton.addClickListener(event -> {
+            homeButton.getUI().ifPresent(ui -> ui.navigate("admin/transactions"));
+        });
+        Button appEventsButton = new Button("APPLICATION EVENTS");
+        appEventsButton.addClickListener(event -> {
+            homeButton.getUI().ifPresent(ui -> ui.navigate("admin/appEvents"));
+        });
+        HorizontalLayout menuButtons = new HorizontalLayout(usersButton, accountsButton, transactionsButton, appEventsButton);
 
         HorizontalLayout mainContent = new HorizontalLayout(gridAccount, accountAdminForm);
         mainContent.setSizeFull();
         gridAccount.setSizeFull();
         gridAccount.setHeight("270px");
-        add(accountsLabel,filterFieldsAccount, mainContent);
+        add(homeButton, menuButtons, filterFieldsAccount, mainContent);
         accountAdminForm.setAccount(null);
         setSizeFull();
         refreshAccounts();

@@ -2,7 +2,7 @@ package com.transfer.app7b.form;
 
 import com.transfer.app7b.domain.dto.AccountDto;
 import com.transfer.app7b.service.AccountService;
-import com.transfer.app7b.view.AdminView;
+import com.transfer.app7b.view.admin.AdminAccountsView;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -26,15 +26,15 @@ public class AccountAdminForm extends FormLayout {
     private Binder<AccountDto> binder = new Binder<>(AccountDto.class);
     private AccountService accountService = AccountService.getInstance();
 
-    private AdminView adminView;
+    private AdminAccountsView adminAccountsView;
 
-    public AccountAdminForm(AdminView adminView2) {
+    public AccountAdminForm(AdminAccountsView adminAccountsView2) {
         currency.setItems(currencyString);
         HorizontalLayout buttons = new HorizontalLayout(saveAccountB, updateAccountB, deleteAccountB, cancelAccountB);
         saveAccountB.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         add(balance, currency, userId, buttons);
         binder.bindInstanceFields(this);
-        adminView = adminView2;
+        adminAccountsView = adminAccountsView2;
         saveAccountB.addClickListener(event -> saveAccount());
         updateAccountB.addClickListener(event -> updateAccount());
         deleteAccountB.addClickListener(event -> deleteAccount());
@@ -44,21 +44,21 @@ public class AccountAdminForm extends FormLayout {
     private void updateAccount() {
         AccountDto accountDto = binder.getBean();
         accountService.update(accountDto);
-        adminView.refreshAccounts();
+        adminAccountsView.refreshAccounts();
         setAccount(null);
     }
 
     private void saveAccount() {
         AccountDto accountDto = binder.getBean();
         accountService.save(accountDto);
-        adminView.refreshAccounts();
+        adminAccountsView.refreshAccounts();
         setAccount(null);
     }
 
     private void deleteAccount() {
         AccountDto accountDto = binder.getBean();
         accountService.delete(accountDto.getId());
-        adminView.refreshAccounts();
+        adminAccountsView.refreshAccounts();
         setAccount(null);
     }
 
