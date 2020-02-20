@@ -19,8 +19,8 @@ public class AccountService {
     private RestTemplate restTemplate = new RestTemplate();
     private AppConfig appConfig = AppConfig.getInstance();
     private JsonBuilder<AccountDto> jsonBuilder = new JsonBuilder<>();
-
     private List<AccountDto> accountDtos;
+
     private static AccountService accountService;
 
     private AccountService() {

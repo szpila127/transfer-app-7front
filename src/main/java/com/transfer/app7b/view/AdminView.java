@@ -24,15 +24,16 @@ public class AdminView extends VerticalLayout {
     private Button addNewAccount = new Button("Add new account");
 
     public AdminView() {
-        filterAccountsById.setPlaceholder("Filter by id");
+        filterAccountsById.setPlaceholder("Filter by user ID...");
         filterAccountsById.setClearButtonVisible(true);
         filterAccountsById.setValueChangeMode(ValueChangeMode.EAGER);
         filterAccountsById.addValueChangeListener(e -> updateAccountById());
-        filterAccountsByCurrency.setPlaceholder("Filter by currency");
+        filterAccountsByCurrency.setPlaceholder("Filter by currency...");
         filterAccountsByCurrency.setClearButtonVisible(true);
         filterAccountsByCurrency.setValueChangeMode(ValueChangeMode.EAGER);
         filterAccountsByCurrency.addValueChangeListener(e -> updateAccountByCurrency());
         gridAccount.setColumns("userId", "balance", "currency");
+        gridAccount.getColumnByKey("userId").setHeader("User ID");
         addNewAccount.addClickListener(event -> {
             gridAccount.asSingleSelect().clear();
             accountAdminForm.saveAccountB.setVisible(true);

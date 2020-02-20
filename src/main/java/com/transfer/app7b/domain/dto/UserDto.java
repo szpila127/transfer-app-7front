@@ -23,10 +23,4 @@ public class UserDto {
     private String pesel;
     @JsonProperty
     private List<AccountDto> accounts;
-
-    public UserDto(String email, String password, String pesel) {
-        this.email = email;
-        this.password = password;
-        this.pesel = pesel;
-    }
 }
