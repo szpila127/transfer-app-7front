@@ -1,5 +1,6 @@
 package com.transfer.app7b.form;
 
+import com.transfer.app7b.domain.Currency;
 import com.transfer.app7b.domain.dto.AccountDto;
 import com.transfer.app7b.service.AccountService;
 import com.transfer.app7b.view.admin.AdminAccountsView;
@@ -13,7 +14,6 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 
 public class AccountAdminForm extends FormLayout {
-    public String[] currencyString = {"PLN", "USD", "EUR", "GBP"};
 
     private BigDecimalField balance = new BigDecimalField("Balance");
     private ComboBox<String> currency = new ComboBox<>("Currency");
@@ -29,7 +29,7 @@ public class AccountAdminForm extends FormLayout {
     private AdminAccountsView adminAccountsView;
 
     public AccountAdminForm(AdminAccountsView adminAccountsView2) {
-        currency.setItems(currencyString);
+        currency.setItems(Currency.currencyString);
         HorizontalLayout buttons = new HorizontalLayout(saveAccountB, updateAccountB, deleteAccountB, cancelAccountB);
         saveAccountB.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         add(balance, currency, userId, buttons);

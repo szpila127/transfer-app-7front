@@ -5,17 +5,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TransactionDto {
     @JsonProperty
-    private long id;
+    private Long id;
     @JsonProperty
     private LocalDateTime date;
     @JsonProperty
@@ -23,14 +25,7 @@ public class TransactionDto {
     @JsonProperty
     private String currency;
     @JsonProperty
-    private long accountOutId;
+    private Long accountOutId;
     @JsonProperty
-    private long accountInId;
-
-    public TransactionDto(BigDecimal amount, String currency, long accountOutId, long accountInId) {
-        this.amount = amount;
-        this.currency = currency;
-        this.accountOutId = accountOutId;
-        this.accountInId = accountInId;
-    }
+    private Long accountInId;
 }

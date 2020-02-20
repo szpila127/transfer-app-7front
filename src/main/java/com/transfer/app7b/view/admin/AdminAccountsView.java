@@ -16,6 +16,10 @@ import com.vaadin.flow.router.Route;
 public class AdminAccountsView extends VerticalLayout {
 
     private Button homeButton = new Button("HOME");
+    private Button usersButton = new Button("USERS");
+    private Button accountsButton = new Button("ACCOUNTS");
+    private Button transactionsButton = new Button("TRANSACTIONS");
+    private Button appEventsButton = new Button("APPLICATION EVENTS");
     private AccountService accountService = AccountService.getInstance();
     private Grid<AccountDto> gridAccount = new Grid<>(AccountDto.class);
     private TextField filterAccountsById = new TextField();
@@ -28,10 +32,12 @@ public class AdminAccountsView extends VerticalLayout {
         filterAccountsById.setClearButtonVisible(true);
         filterAccountsById.setValueChangeMode(ValueChangeMode.EAGER);
         filterAccountsById.addValueChangeListener(e -> updateAccountById());
+
         filterAccountsByCurrency.setPlaceholder("Filter by currency...");
         filterAccountsByCurrency.setClearButtonVisible(true);
         filterAccountsByCurrency.setValueChangeMode(ValueChangeMode.EAGER);
         filterAccountsByCurrency.addValueChangeListener(e -> updateAccountByCurrency());
+
         gridAccount.setColumns("userId", "balance", "currency");
         gridAccount.getColumnByKey("userId").setHeader("User ID");
         homeButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
@@ -48,19 +54,15 @@ public class AdminAccountsView extends VerticalLayout {
         });
         HorizontalLayout filterFieldsAccount = new HorizontalLayout(filterAccountsById, filterAccountsByCurrency, addNewAccount);
 
-        Button usersButton = new Button("USERS");
         usersButton.addClickListener(event -> {
             homeButton.getUI().ifPresent(ui -> ui.navigate("admin/users"));
         });
-        Button accountsButton = new Button("ACCOUNTS");
         accountsButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        Button transactionsButton = new Button("TRANSACTIONS");
         transactionsButton.addClickListener(event -> {
             homeButton.getUI().ifPresent(ui -> ui.navigate("admin/transactions"));
         });
-        Button appEventsButton = new Button("APPLICATION EVENTS");
         appEventsButton.addClickListener(event -> {
-            homeButton.getUI().ifPresent(ui -> ui.navigate("admin/appEvents"));
+            homeButton.getUI().ifPresent(ui -> ui.navigate("admin/app-events"));
         });
         HorizontalLayout menuButtons = new HorizontalLayout(usersButton, accountsButton, transactionsButton, appEventsButton);
 
