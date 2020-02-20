@@ -18,10 +18,10 @@ public class AccountAdminForm extends FormLayout {
     private BigDecimalField balance = new BigDecimalField("Balance");
     private ComboBox<String> currency = new ComboBox<>("Currency");
     private TextField userId = new TextField("User ID");
-    public Button saveAccountB = new Button("Save");
-    public Button updateAccountB = new Button("Update");
-    public Button deleteAccountB = new Button("Delete");
-    public Button cancelAccountB = new Button("Cancel");
+    public Button saveAccountButton = new Button("Save");
+    public Button updateAccountButton = new Button("Update");
+    public Button deleteAccountButton = new Button("Delete");
+    public Button cancelAccountButton = new Button("Cancel");
 
     private Binder<AccountDto> binder = new Binder<>(AccountDto.class);
     private AccountService accountService = AccountService.getInstance();
@@ -30,15 +30,15 @@ public class AccountAdminForm extends FormLayout {
 
     public AccountAdminForm(AdminAccountsView adminAccountsView2) {
         currency.setItems(Currency.currencyString);
-        HorizontalLayout buttons = new HorizontalLayout(saveAccountB, updateAccountB, deleteAccountB, cancelAccountB);
-        saveAccountB.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        HorizontalLayout buttons = new HorizontalLayout(saveAccountButton, updateAccountButton, deleteAccountButton, cancelAccountButton);
+        saveAccountButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         add(balance, currency, userId, buttons);
         binder.bindInstanceFields(this);
         adminAccountsView = adminAccountsView2;
-        saveAccountB.addClickListener(event -> saveAccount());
-        updateAccountB.addClickListener(event -> updateAccount());
-        deleteAccountB.addClickListener(event -> deleteAccount());
-        cancelAccountB.addClickListener(event -> setAccount(null));
+        saveAccountButton.addClickListener(event -> saveAccount());
+        updateAccountButton.addClickListener(event -> updateAccount());
+        deleteAccountButton.addClickListener(event -> deleteAccount());
+        cancelAccountButton.addClickListener(event -> setAccount(null));
     }
 
     private void updateAccount() {

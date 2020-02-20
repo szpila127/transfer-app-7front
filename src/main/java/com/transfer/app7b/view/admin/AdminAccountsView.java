@@ -38,8 +38,9 @@ public class AdminAccountsView extends VerticalLayout {
         filterAccountsByCurrency.setValueChangeMode(ValueChangeMode.EAGER);
         filterAccountsByCurrency.addValueChangeListener(e -> updateAccountByCurrency());
 
-        gridAccount.setColumns("userId", "balance", "currency");
+        gridAccount.setColumns("id", "userId", "balance", "currency");
         gridAccount.getColumnByKey("userId").setHeader("User ID");
+        gridAccount.getColumnByKey("id").setHeader("ID");
         homeButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         homeButton.addClickListener(event -> {
             homeButton.getUI().ifPresent(ui -> ui.navigate("home"));
@@ -47,9 +48,9 @@ public class AdminAccountsView extends VerticalLayout {
         Button addNewAccount = new Button("Add new account");
         addNewAccount.addClickListener(event -> {
             gridAccount.asSingleSelect().clear();
-            accountAdminForm.saveAccountB.setVisible(true);
-            accountAdminForm.deleteAccountB.setVisible(false);
-            accountAdminForm.updateAccountB.setVisible(false);
+            accountAdminForm.saveAccountButton.setVisible(true);
+            accountAdminForm.deleteAccountButton.setVisible(false);
+            accountAdminForm.updateAccountButton.setVisible(false);
             accountAdminForm.setAccount(new AccountDto());
         });
         HorizontalLayout filterFieldsAccount = new HorizontalLayout(filterAccountsById, filterAccountsByCurrency, addNewAccount);
@@ -76,9 +77,9 @@ public class AdminAccountsView extends VerticalLayout {
         refreshAccounts();
 
         gridAccount.asSingleSelect().addValueChangeListener(event -> {
-            accountAdminForm.saveAccountB.setVisible(false);
-            accountAdminForm.deleteAccountB.setVisible(true);
-            accountAdminForm.updateAccountB.setVisible(true);
+            accountAdminForm.saveAccountButton.setVisible(false);
+            accountAdminForm.deleteAccountButton.setVisible(true);
+            accountAdminForm.updateAccountButton.setVisible(true);
             accountAdminForm.setAccount(gridAccount.asSingleSelect().getValue());
         });
     }
