@@ -22,7 +22,6 @@ public class AccountAdminForm extends FormLayout {
     private BigDecimalField balance = new BigDecimalField("Balance");
     private ComboBox<String> currency = new ComboBox<>("Currency");
     private ComboBox<String> userId = new ComboBox<>("User ID");
-//    private TextField userId = new TextField("User ID");
     public Button saveAccountButton = new Button("Save");
     public Button updateAccountButton = new Button("Update");
     public Button deleteAccountButton = new Button("Delete");
