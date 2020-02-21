@@ -37,6 +37,7 @@ public class AdminAppEventsView extends VerticalLayout {
 
         gridAppEvent.setColumns("id", "date", "event", "information");
         gridAppEvent.getColumnByKey("id").setHeader("ID");
+
         homeButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         homeButton.addClickListener(event -> {
             homeButton.getUI().ifPresent(ui -> ui.navigate("home"));
@@ -49,10 +50,11 @@ public class AdminAppEventsView extends VerticalLayout {
         accountsButton.addClickListener(event -> {
             homeButton.getUI().ifPresent(ui -> ui.navigate("admin/accounts"));
         });
-        transactionsButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        appEventsButton.addClickListener(event -> {
-            homeButton.getUI().ifPresent(ui -> ui.navigate("admin/app-events"));
+        transactionsButton.addClickListener(event -> {
+            homeButton.getUI().ifPresent(ui -> ui.navigate("admin/transactions"));
         });
+        appEventsButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+
         HorizontalLayout menuButtons = new HorizontalLayout(usersButton, accountsButton, transactionsButton, appEventsButton);
 
         gridAppEvent.setSizeFull();
