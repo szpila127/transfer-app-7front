@@ -3,8 +3,6 @@ package com.transfer.app7b.service;
 import com.transfer.app7b.config.AppConfig;
 import com.transfer.app7b.config.JsonBuilder;
 import com.transfer.app7b.domain.dto.AppEventDto;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -13,7 +11,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class AppEventService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AppEventService.class);
 
     private RestTemplate restTemplate = new RestTemplate();
     private AppConfig appConfig = AppConfig.getInstance();

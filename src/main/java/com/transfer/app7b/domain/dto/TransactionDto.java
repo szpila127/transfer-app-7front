@@ -22,9 +22,9 @@ public class TransactionDto {
     @JsonProperty
     private String currency;
     @JsonProperty
-    private Long accountOutId;
+    private String accountOutId;
     @JsonProperty
-    private Long accountInId;
+    private String accountInId;
 
     public Long getId() {
         return id;
@@ -43,11 +43,11 @@ public class TransactionDto {
         return currency;
     }
 
-    public Long getAccountOutId() {
+    public String getAccountOutId() {
         return accountOutId;
     }
 
-    public Long getAccountInId() {
+    public String getAccountInId() {
         return accountInId;
     }
 }
