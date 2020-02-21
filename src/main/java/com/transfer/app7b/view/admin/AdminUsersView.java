@@ -43,7 +43,7 @@ public class AdminUsersView extends VerticalLayout {
 
         homeButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         homeButton.addClickListener(event -> {
-            homeButton.getUI().ifPresent(ui -> ui.navigate("home"));
+            homeButton.getUI().ifPresent(ui -> ui.navigate(""));
         });
         Button addNewUser = new Button("Add new user", VaadinIcon.PLUS_CIRCLE.create());
         addNewUser.addClickListener(event -> {

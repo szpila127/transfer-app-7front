@@ -44,7 +44,7 @@ public class AdminAccountsView extends VerticalLayout {
         gridAccount.getColumnByKey("id").setHeader("ID");
         homeButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         homeButton.addClickListener(event -> {
-            homeButton.getUI().ifPresent(ui -> ui.navigate("home"));
+            homeButton.getUI().ifPresent(ui -> ui.navigate(""));
         });
         Button addNewAccount = new Button("Add new account",  VaadinIcon.PLUS_CIRCLE.create());
         addNewAccount.addClickListener(event -> {

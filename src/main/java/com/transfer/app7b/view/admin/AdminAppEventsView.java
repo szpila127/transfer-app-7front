@@ -43,7 +43,7 @@ public class AdminAppEventsView extends VerticalLayout {
 
         homeButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         homeButton.addClickListener(event -> {
-            homeButton.getUI().ifPresent(ui -> ui.navigate("home"));
+            homeButton.getUI().ifPresent(ui -> ui.navigate(""));
         });
         HorizontalLayout filterFields = new HorizontalLayout(filterEventsByDate, filterEventsByType);
 
