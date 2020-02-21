@@ -6,6 +6,7 @@ import com.transfer.app7b.service.UserService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -15,7 +16,7 @@ import com.vaadin.flow.router.Route;
 @Route(value = "admin/users")
 public class AdminUsersView extends VerticalLayout {
 
-    private Button homeButton = new Button("HOME");
+    private Button homeButton = new Button("HOME",  VaadinIcon.HOME.create());
     private Button usersButton = new Button("USERS");
     private Button accountsButton = new Button("ACCOUNTS");
     private Button transactionsButton = new Button("TRANSACTIONS");
@@ -44,7 +45,7 @@ public class AdminUsersView extends VerticalLayout {
         homeButton.addClickListener(event -> {
             homeButton.getUI().ifPresent(ui -> ui.navigate("home"));
         });
-        Button addNewUser = new Button("Add new user");
+        Button addNewUser = new Button("Add new user", VaadinIcon.PLUS_CIRCLE.create());
         addNewUser.addClickListener(event -> {
             gridUser.asSingleSelect().clear();
             userAdminForm.saveUserButton.setVisible(true);
