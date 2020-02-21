@@ -70,7 +70,6 @@ public class AdminAccountsView extends VerticalLayout {
         HorizontalLayout mainContent = new HorizontalLayout(gridAccount, accountAdminForm);
         mainContent.setSizeFull();
         gridAccount.setSizeFull();
-        gridAccount.setHeight("270px");
         add(homeButton, menuButtons, filterFieldsAccount, mainContent);
         accountAdminForm.setAccount(null);
         setSizeFull();
