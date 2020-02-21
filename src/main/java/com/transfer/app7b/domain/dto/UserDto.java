@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -24,5 +25,5 @@ public class UserDto {
     @JsonProperty
     private String pesel;
     @JsonProperty
-    private List<AccountDto> accounts;
+    private List<AccountDto> accounts = new ArrayList<>();
 }

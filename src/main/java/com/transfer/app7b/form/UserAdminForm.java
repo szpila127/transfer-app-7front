@@ -31,27 +31,30 @@ public class UserAdminForm extends FormLayout {
         add(email, password, pesel, buttons);
         binder.bindInstanceFields(this);
         adminUsersView = adminUsersView2;
-
+        saveUserButton.addClickListener(event -> saveUser());
+        updateUserButton.addClickListener(event -> updateUser());
+        deleteUserButton.addClickListener(event -> deleteUser());
+        cancelUserButton.addClickListener(event -> setUser(null));
     }
 
     private void updateUser() {
         UserDto userDto = binder.getBean();
         userService.update(userDto);
-        adminUsersView.refreshAccounts();
+        adminUsersView.refreshUsers();
         setUser(null);
     }
 
     private void saveUser() {
         UserDto userDto = binder.getBean();
         userService.save(userDto);
-        adminUsersView.refreshAccounts();
+        adminUsersView.refreshUsers();
         setUser(null);
     }
 
     private void deleteUser() {
         UserDto userDto = binder.getBean();
         userService.delete(userDto.getId());
-        adminUsersView.refreshAccounts();
+        adminUsersView.refreshUsers();
         setUser(null);
     }
 

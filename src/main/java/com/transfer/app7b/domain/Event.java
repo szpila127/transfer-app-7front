@@ -1,8 +1,5 @@
 package com.transfer.app7b.domain;
 
-public enum Event {
-    CREATE,
-    DELETE,
-    UPDATE,
-    SEND_MAIL
+public class Event {
+    public static String[] eventString = {"CREATE", "DELETE", "UPDATE", "SEND_MAIL"};
 }

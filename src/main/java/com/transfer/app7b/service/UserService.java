@@ -49,7 +49,7 @@ public class UserService {
     }
 
     public List<UserDto> fillterByEmail(String string) {
-        string = string.toUpperCase();
+        string = string.toLowerCase();
         String finalString = string;
         return userDtos.stream()
                 .filter(userDto -> userDto.getEmail().contains(finalString))

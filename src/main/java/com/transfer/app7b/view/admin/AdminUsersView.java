@@ -6,6 +6,7 @@ import com.transfer.app7b.service.UserService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
@@ -36,14 +37,50 @@ public class AdminUsersView extends VerticalLayout {
         filterUsersByPesel.setValueChangeMode(ValueChangeMode.EAGER);
         filterUsersByPesel.addValueChangeListener(e -> updateUserByPesel());
 
-        gridUser.setColumns("id", "email", "password", "pesel", "accounts");
+        gridUser.setColumns("id", "email", "password", "pesel");
         gridUser.getColumnByKey("id").setHeader("ID");
 
         homeButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         homeButton.addClickListener(event -> {
             homeButton.getUI().ifPresent(ui -> ui.navigate("home"));
         });
+        Button addNewUser = new Button("Add new user");
+        addNewUser.addClickListener(event -> {
+            gridUser.asSingleSelect().clear();
+            userAdminForm.saveUserButton.setVisible(true);
+            userAdminForm.deleteUserButton.setVisible(false);
+            userAdminForm.updateUserButton.setVisible(false);
+            userAdminForm.setUser(new UserDto());
+        });
 
+        HorizontalLayout filterFieldsUser = new HorizontalLayout(filterUsersByEmail, filterUsersByPesel, addNewUser);
+
+        usersButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        accountsButton.addClickListener(event -> {
+            homeButton.getUI().ifPresent(ui -> ui.navigate("admin/accounts"));
+        });
+        transactionsButton.addClickListener(event -> {
+            homeButton.getUI().ifPresent(ui -> ui.navigate("admin/transactions"));
+        });
+        appEventsButton.addClickListener(event -> {
+            homeButton.getUI().ifPresent(ui -> ui.navigate("admin/app-events"));
+        });
+        HorizontalLayout menuButtons = new HorizontalLayout(usersButton, accountsButton, transactionsButton, appEventsButton);
+
+        HorizontalLayout mainContent = new HorizontalLayout(gridUser, userAdminForm);
+        mainContent.setSizeFull();
+        gridUser.setSizeFull();
+        add(homeButton, menuButtons, filterFieldsUser, mainContent);
+        userAdminForm.setUser(null);
+        setSizeFull();
+        refreshUsers();
+
+        gridUser.asSingleSelect().addValueChangeListener(event -> {
+            userAdminForm.saveUserButton.setVisible(false);
+            userAdminForm.deleteUserButton.setVisible(true);
+            userAdminForm.updateUserButton.setVisible(true);
+            userAdminForm.setUser(gridUser.asSingleSelect().getValue());
+        });
     }
 
     private void updateUserByEmail() {
@@ -54,7 +91,7 @@ public class AdminUsersView extends VerticalLayout {
         gridUser.setItems(userService.fillterByPesel(filterUsersByPesel.getValue()));
     }
 
-    public void refreshAccounts() {
+    public void refreshUsers() {
         userService.fetchAll();
         gridUser.setItems(userService.getUserDtos());
     }

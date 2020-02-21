@@ -38,7 +38,7 @@ public class AdminAccountsView extends VerticalLayout {
         filterAccountsByCurrency.setValueChangeMode(ValueChangeMode.EAGER);
         filterAccountsByCurrency.addValueChangeListener(e -> updateAccountByCurrency());
 
-        gridAccount.setColumns("id", "userId", "balance", "currency");
+        gridAccount.setColumns("id", "balance", "currency", "userId");
         gridAccount.getColumnByKey("userId").setHeader("User ID");
         gridAccount.getColumnByKey("id").setHeader("ID");
         homeButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
