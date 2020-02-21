@@ -1,6 +1,7 @@
 package com.transfer.app7b.view.admin;
 
 import com.transfer.app7b.domain.dto.AppEventDto;
+import com.transfer.app7b.form.AppEventAdminForm;
 import com.transfer.app7b.service.AppEventService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -23,6 +24,7 @@ public class AdminAppEventsView extends VerticalLayout {
     private Grid<AppEventDto> gridAppEvent = new Grid<>(AppEventDto.class);
     private TextField filterEventsByType= new TextField();
     private TextField filterEventsByDate = new TextField();
+    private AppEventAdminForm appEventAdminForm = new AppEventAdminForm(this);
 
     public AdminAppEventsView() {
         filterEventsByDate.setPlaceholder("Filter by date...");
@@ -57,10 +59,17 @@ public class AdminAppEventsView extends VerticalLayout {
 
         HorizontalLayout menuButtons = new HorizontalLayout(usersButton, accountsButton, transactionsButton, appEventsButton);
 
+        HorizontalLayout mainContent = new HorizontalLayout(gridAppEvent, appEventAdminForm);
+        mainContent.setSizeFull();
         gridAppEvent.setSizeFull();
-        add(homeButton, menuButtons, filterFields, gridAppEvent);
+        add(homeButton, menuButtons, filterFields, mainContent);
+        appEventAdminForm.setAppEvent(null);
         setSizeFull();
         refreshAppEvents();
+
+        gridAppEvent.asSingleSelect().addValueChangeListener(event -> {
+            appEventAdminForm.setAppEvent(gridAppEvent.asSingleSelect().getValue());
+        });
     }
     private void updateEventsByDate() {
         gridAppEvent.setItems(appEventService.filterByDate(filterEventsByDate.getValue()));
