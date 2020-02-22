@@ -1,10 +1,14 @@
 package com.transfer.app7b.form;
 
+import com.transfer.app7b.domain.Currency;
 import com.transfer.app7b.domain.dto.TransactionDto;
 import com.transfer.app7b.service.TransactionService;
 import com.transfer.app7b.view.admin.AdminTransactionsView;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.BigDecimalField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
@@ -15,13 +19,37 @@ public class TransactionAdminForm extends FormLayout {
     private ComboBox<String> currency = new ComboBox<>("Currency");
     private TextField accountOutId = new TextField("Account Out ID");
     private TextField accountInId = new TextField("Account In ID");
+    public Button saveTransactionButton = new Button("Save");
+    public Button returnTransactionButton = new Button("Return");
+    public Button updateTransactionButton = new Button("Update");
+    public Button deleteTransactionButton = new Button("Delete");
+    public Button cancelTransactionButton = new Button("Cancel");
 
     private Binder<TransactionDto> binder = new Binder<>(TransactionDto.class);
     public TransactionService transactionService = TransactionService.getInstance();
 
     private AdminTransactionsView adminTransactionsView;
 
-    public TransactionAdminForm() {
+    public TransactionAdminForm(AdminTransactionsView adminTransactionsView2) {
+        currency.setItems(Currency.currencyString);
+        HorizontalLayout buttons = new HorizontalLayout(saveTransactionButton,returnTransactionButton, updateTransactionButton, deleteTransactionButton, cancelTransactionButton);
+        saveTransactionButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        returnTransactionButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        add(amount, currency, accountOutId, accountInId,  buttons);
+        binder.bindInstanceFields(this);
+        adminTransactionsView = adminTransactionsView2;
+        saveTransactionButton.addClickListener(event -> saveTransaction());
+        returnTransactionButton.addClickListener(event -> returnTransaction());
+        updateTransactionButton.addClickListener(event -> updateTransaction());
+        deleteTransactionButton.addClickListener(event -> deleteTransaction());
+        cancelTransactionButton.addClickListener(event -> setTransaction(null));
+    }
+
+    private void returnTransaction() {
+        TransactionDto transactionDto = binder.getBean();
+        transactionService.returnTransaction(transactionDto.getId());
+        adminTransactionsView.refreshTransactions();
+        setTransaction(null);
     }
 
     private void updateTransaction() {
@@ -38,7 +66,7 @@ public class TransactionAdminForm extends FormLayout {
         setTransaction(null);
     }
 
-    private void deleteAccount() {
+    private void deleteTransaction() {
         TransactionDto transactionDto = binder.getBean();
         transactionService.delete(transactionDto.getId());
         adminTransactionsView.refreshTransactions();

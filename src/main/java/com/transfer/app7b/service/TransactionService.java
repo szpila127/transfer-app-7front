@@ -42,8 +42,8 @@ public class TransactionService {
                 .encode()
                 .build()
                 .toUri();
-        Optional<TransactionDto[]> users = Optional.ofNullable(restTemplate.getForObject(url, TransactionDto[].class));
-        transactionDtos = new ArrayList<>(users
+        Optional<TransactionDto[]> transactions = Optional.ofNullable(restTemplate.getForObject(url, TransactionDto[].class));
+        transactionDtos = new ArrayList<>(transactions
                 .map(Arrays::asList)
                 .orElse(new ArrayList<>()));
     }
@@ -58,7 +58,7 @@ public class TransactionService {
 
     public List<TransactionDto> filterByDate(String string) {
         return transactionDtos.stream()
-                .filter(transactionDto -> transactionDto.getDate().contains(string))
+                .filter(transactionDto -> transactionDto.getDate().toString().contains(string))
                 .collect(Collectors.toList());
     }
 
@@ -83,13 +83,25 @@ public class TransactionService {
         }
     }
 
+    public void returnTransaction(long id) {
+        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "transaction/" + id)
+                .encode()
+                .build()
+                .toUri();
+        try {
+            restTemplate.postForObject(url, Object.class, Void.class);
+        } catch (RestClientException e) {
+            LOGGER.error("" + e);
+        }
+    }
+
     public void update(TransactionDto transactionDto) {
         String url = appConfig.getBackendEndpoint() + "transaction";
         restTemplate.put(url, jsonBuilder.prepareJson(transactionDto));
     }
 
     public void delete(long id) {
-        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "user/" + id)
+        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "transaction/" + id)
                 .encode()
                 .build()
                 .toUri();

@@ -3,11 +3,14 @@ package com.transfer.app7b.domain.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
+@Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,7 +19,7 @@ public class TransactionDto {
     @JsonProperty
     private Long id;
     @JsonProperty
-    private String date;
+    private LocalDateTime date = LocalDateTime.now();
     @JsonProperty
     private BigDecimal amount;
     @JsonProperty
@@ -25,29 +28,4 @@ public class TransactionDto {
     private String accountOutId;
     @JsonProperty
     private String accountInId;
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getDate() {
-        String newDate = date.replace('T', ' ');
-        return newDate;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public String getAccountOutId() {
-        return accountOutId;
-    }
-
-    public String getAccountInId() {
-        return accountInId;
-    }
 }
