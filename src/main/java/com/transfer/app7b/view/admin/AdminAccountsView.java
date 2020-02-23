@@ -21,7 +21,7 @@ public class AdminAccountsView extends VerticalLayout {
     private Button accountsButton = new Button("ACCOUNTS");
     private Button transactionsButton = new Button("TRANSACTIONS");
     private Button appEventsButton = new Button("APPLICATION EVENTS");
-    private AccountService accountService = AccountService.getInstance();
+    private AccountService accountService = new AccountService();
     private Grid<AccountDto> gridAccount = new Grid<>(AccountDto.class);
     private TextField filterAccountsById = new TextField();
     private TextField filterAccountsByCurrency = new TextField();

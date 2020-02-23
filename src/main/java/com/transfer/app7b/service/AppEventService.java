@@ -1,8 +1,8 @@
 package com.transfer.app7b.service;
 
 import com.transfer.app7b.config.AppConfig;
-import com.transfer.app7b.config.JsonBuilder;
 import com.transfer.app7b.domain.dto.AppEventDto;
+import lombok.NoArgsConstructor;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -10,31 +10,18 @@ import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@NoArgsConstructor
 public class AppEventService {
 
     private RestTemplate restTemplate = new RestTemplate();
-    private AppConfig appConfig = AppConfig.getInstance();
-    private JsonBuilder<AppEventDto> jsonBuilder = new JsonBuilder<>();
     private List<AppEventDto> appEventDtos;
-
-    private static AppEventService appEventService;
-
-    private AppEventService() {
-    }
-
-    public static AppEventService getInstance() {
-        if (appEventService == null) {
-            appEventService = new AppEventService();
-        }
-        return appEventService;
-    }
 
     public Set<AppEventDto> getAppEventDtos() {
         return new HashSet<>(appEventDtos);
     }
 
     public void fetchAll() {
-        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "event")
+        URI url = UriComponentsBuilder.fromHttpUrl(AppConfig.backendEndpoint + "event")
                 .encode()
                 .build()
                 .toUri();

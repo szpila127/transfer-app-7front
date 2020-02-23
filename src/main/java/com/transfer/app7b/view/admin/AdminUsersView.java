@@ -21,7 +21,7 @@ public class AdminUsersView extends VerticalLayout {
     private Button accountsButton = new Button("ACCOUNTS");
     private Button transactionsButton = new Button("TRANSACTIONS");
     private Button appEventsButton = new Button("APPLICATION EVENTS");
-    private UserService userService = UserService.getInstance();
+    private UserService userService = new UserService();
     private Grid<UserDto> gridUser = new Grid<>(UserDto.class);
     private TextField filterUsersByEmail = new TextField();
     private TextField filterUsersByPesel = new TextField();

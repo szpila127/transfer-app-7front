@@ -3,6 +3,7 @@ package com.transfer.app7b.service;
 import com.transfer.app7b.config.AppConfig;
 import com.transfer.app7b.config.JsonBuilder;
 import com.transfer.app7b.domain.dto.TransactionDto;
+import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestClientException;
@@ -13,32 +14,20 @@ import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@NoArgsConstructor
 public class TransactionService {
     private static final Logger LOGGER = LoggerFactory.getLogger(TransactionService.class);
 
     private RestTemplate restTemplate = new RestTemplate();
-    private AppConfig appConfig = AppConfig.getInstance();
     private JsonBuilder<TransactionDto> jsonBuilder = new JsonBuilder<>();
     private List<TransactionDto> transactionDtos;
-
-    private static TransactionService transactionService;
-
-    private TransactionService() {
-    }
-
-    public static TransactionService getInstance() {
-        if (transactionService == null) {
-            transactionService = new TransactionService();
-        }
-        return transactionService;
-    }
 
     public Set<TransactionDto> getTransactionDtos() {
         return new HashSet<>(transactionDtos);
     }
 
     public void fetchAll() {
-        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "transaction")
+        URI url = UriComponentsBuilder.fromHttpUrl(AppConfig.backendEndpoint + "transaction")
                 .encode()
                 .build()
                 .toUri();
@@ -75,7 +64,7 @@ public class TransactionService {
     }
 
     public void save(TransactionDto transactionDto) {
-        String url = appConfig.getBackendEndpoint() + "transaction";
+        String url = AppConfig.backendEndpoint + "transaction";
         try {
             restTemplate.postForObject(url, (transactionDto), Void.class);
         } catch (RestClientException e) {
@@ -84,7 +73,7 @@ public class TransactionService {
     }
 
     public void returnTransaction(long id) {
-        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "transaction/" + id)
+        URI url = UriComponentsBuilder.fromHttpUrl(AppConfig.backendEndpoint + "transaction/" + id)
                 .encode()
                 .build()
                 .toUri();
@@ -96,12 +85,12 @@ public class TransactionService {
     }
 
     public void update(TransactionDto transactionDto) {
-        String url = appConfig.getBackendEndpoint() + "transaction";
+        String url = AppConfig.backendEndpoint + "transaction";
         restTemplate.put(url, jsonBuilder.prepareJson(transactionDto));
     }
 
     public void delete(long id) {
-        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "transaction/" + id)
+        URI url = UriComponentsBuilder.fromHttpUrl(AppConfig.backendEndpoint + "transaction/" + id)
                 .encode()
                 .build()
                 .toUri();

@@ -11,10 +11,9 @@ public class AppEventAdminForm extends FormLayout {
 
     private TextArea information = new TextArea("Information");
     public Button cancel = new Button("Cancel");
-
     private Binder<AppEventDto> binder = new Binder<>(AppEventDto.class);
 
-    private AdminAppEventsView adminAppEventsView;
+    public AdminAppEventsView adminAppEventsView;
 
     public AppEventAdminForm(AdminAppEventsView adminAppEventsView2) {
         information.getStyle().set("maxHight", "400px");

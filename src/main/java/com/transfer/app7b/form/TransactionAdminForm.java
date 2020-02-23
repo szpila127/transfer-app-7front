@@ -24,18 +24,17 @@ public class TransactionAdminForm extends FormLayout {
     public Button updateTransactionButton = new Button("Update");
     public Button deleteTransactionButton = new Button("Delete");
     public Button cancelTransactionButton = new Button("Cancel");
-
     private Binder<TransactionDto> binder = new Binder<>(TransactionDto.class);
-    public TransactionService transactionService = TransactionService.getInstance();
+    public TransactionService transactionService = new TransactionService();
 
-    private AdminTransactionsView adminTransactionsView;
+    public AdminTransactionsView adminTransactionsView;
 
     public TransactionAdminForm(AdminTransactionsView adminTransactionsView2) {
         currency.setItems(Currency.currencyString);
-        HorizontalLayout buttons = new HorizontalLayout(saveTransactionButton,returnTransactionButton, updateTransactionButton, deleteTransactionButton, cancelTransactionButton);
+        HorizontalLayout buttons = new HorizontalLayout(saveTransactionButton, returnTransactionButton, updateTransactionButton, deleteTransactionButton, cancelTransactionButton);
         saveTransactionButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         returnTransactionButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        add(amount, currency, accountOutId, accountInId,  buttons);
+        add(amount, currency, accountOutId, accountInId, buttons);
         binder.bindInstanceFields(this);
         adminTransactionsView = adminTransactionsView2;
         saveTransactionButton.addClickListener(event -> saveTransaction());

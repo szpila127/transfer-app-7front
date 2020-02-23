@@ -1,21 +1,24 @@
 package com.transfer.app7b.service;
 
 import com.transfer.app7b.config.AppConfig;
+import lombok.NoArgsConstructor;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
-
+@NoArgsConstructor
 public class CurrencyService {
 
     private RestTemplate restTemplate = new RestTemplate();
-    private AppConfig appConfig = AppConfig.getInstance();
 
-    public double getCurrency(String code) {
-        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "currency/" + code)
-                .encode()
-                .build()
-                .toUri();
-        return restTemplate.getForObject(url, double.class);
+    public static double EUR;
+    public static double USD;
+    public static double GBP;
+
+    public void getCurrencies() {
+        String urlEur = AppConfig.backendEndpoint + "currency/eur";
+        String urlUsd = AppConfig.backendEndpoint + "currency/usd";
+        String urlGbp = AppConfig.backendEndpoint + "currency/gbp";
+        EUR = (double) restTemplate.getForObject(urlEur, Object.class);
+        USD = (double) restTemplate.getForObject(urlUsd, Object.class);
+        GBP = (double) restTemplate.getForObject(urlGbp, Object.class);
     }
 }

@@ -3,6 +3,7 @@ package com.transfer.app7b.service;
 import com.transfer.app7b.config.AppConfig;
 import com.transfer.app7b.config.JsonBuilder;
 import com.transfer.app7b.domain.dto.AccountDto;
+import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestClientException;
@@ -13,32 +14,20 @@ import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@NoArgsConstructor
 public class AccountService {
     private static final Logger LOGGER = LoggerFactory.getLogger(AccountService.class);
 
     private RestTemplate restTemplate = new RestTemplate();
-    private AppConfig appConfig = AppConfig.getInstance();
     private JsonBuilder<AccountDto> jsonBuilder = new JsonBuilder<>();
     private List<AccountDto> accountDtos;
-
-    private static AccountService accountService;
-
-    private AccountService() {
-    }
-
-    public static AccountService getInstance() {
-        if (accountService == null) {
-            accountService = new AccountService();
-        }
-        return accountService;
-    }
 
     public Set<AccountDto> getAccountDtos() {
         return new HashSet<>(accountDtos);
     }
 
     public void fetchAll() {
-        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "account")
+        URI url = UriComponentsBuilder.fromHttpUrl(AppConfig.backendEndpoint + "account")
                 .encode()
                 .build()
                 .toUri();
@@ -63,7 +52,7 @@ public class AccountService {
     }
 
     public void save(AccountDto accountDto) {
-        String url = appConfig.getBackendEndpoint() + "account";
+        String url = AppConfig.backendEndpoint + "account";
         try {
             restTemplate.postForObject(url, (accountDto), Void.class);
         } catch (RestClientException e) {
@@ -72,12 +61,12 @@ public class AccountService {
     }
 
     public void update(AccountDto accountDto) {
-        String url = appConfig.getBackendEndpoint() + "account";
+        String url = AppConfig.backendEndpoint + "account";
         restTemplate.put(url, jsonBuilder.prepareJson(accountDto));
     }
 
     public void delete(long id) {
-        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "account/" + id)
+        URI url = UriComponentsBuilder.fromHttpUrl(AppConfig.backendEndpoint + "account/" + id)
                 .encode()
                 .build()
                 .toUri();

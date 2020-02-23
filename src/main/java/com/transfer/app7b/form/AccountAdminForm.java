@@ -22,9 +22,8 @@ public class AccountAdminForm extends FormLayout {
     public Button updateAccountButton = new Button("Update");
     public Button deleteAccountButton = new Button("Delete");
     public Button cancelAccountButton = new Button("Cancel");
-
     private Binder<AccountDto> binder = new Binder<>(AccountDto.class);
-    private AccountService accountService = AccountService.getInstance();
+    private AccountService accountService = new AccountService();
 
     private AdminAccountsView adminAccountsView;
 

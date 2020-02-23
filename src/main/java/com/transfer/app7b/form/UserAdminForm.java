@@ -19,11 +19,10 @@ public class UserAdminForm extends FormLayout {
     public Button updateUserButton = new Button("Update");
     public Button deleteUserButton = new Button("Delete");
     public Button cancelUserButton = new Button("Cancel");
-
     private Binder<UserDto> binder = new Binder<>(UserDto.class);
-    private UserService userService = UserService.getInstance();
+    private UserService userService = new UserService();
 
-    private AdminUsersView adminUsersView;
+    public AdminUsersView adminUsersView;
 
     public UserAdminForm(AdminUsersView adminUsersView2) {
         HorizontalLayout buttons = new HorizontalLayout(saveUserButton, updateUserButton, deleteUserButton, cancelUserButton);

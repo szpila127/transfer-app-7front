@@ -3,6 +3,7 @@ package com.transfer.app7b.service;
 import com.transfer.app7b.config.AppConfig;
 import com.transfer.app7b.config.JsonBuilder;
 import com.transfer.app7b.domain.dto.UserDto;
+import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestClientException;
@@ -13,32 +14,20 @@ import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@NoArgsConstructor
 public class UserService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     private RestTemplate restTemplate = new RestTemplate();
-    private AppConfig appConfig = AppConfig.getInstance();
     private JsonBuilder<UserDto> jsonBuilder = new JsonBuilder<>();
     private List<UserDto> userDtos;
-
-    private static UserService userService;
-
-    private UserService() {
-    }
-
-    public static UserService getInstance() {
-        if (userService == null) {
-            userService = new UserService();
-        }
-        return userService;
-    }
 
     public Set<UserDto> getUserDtos() {
         return new HashSet<>(userDtos);
     }
 
     public void fetchAll() {
-        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "user")
+        URI url = UriComponentsBuilder.fromHttpUrl(AppConfig.backendEndpoint + "user")
                 .encode()
                 .build()
                 .toUri();
@@ -65,7 +54,7 @@ public class UserService {
     }
 
     public void save(UserDto userDto) {
-        String url = appConfig.getBackendEndpoint() + "user";
+        String url = AppConfig.backendEndpoint + "user";
         try {
             restTemplate.postForObject(url, (userDto), Void.class);
         } catch (RestClientException e) {
@@ -74,12 +63,12 @@ public class UserService {
     }
 
     public void update(UserDto userDto) {
-        String url = appConfig.getBackendEndpoint() + "user";
+        String url = AppConfig.backendEndpoint + "user";
         restTemplate.put(url, jsonBuilder.prepareJson(userDto));
     }
 
     public void delete(long id) {
-        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "user/" + id)
+        URI url = UriComponentsBuilder.fromHttpUrl(AppConfig.backendEndpoint + "user/" + id)
                 .encode()
                 .build()
                 .toUri();

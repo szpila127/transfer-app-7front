@@ -21,7 +21,7 @@ public class AdminTransactionsView extends VerticalLayout {
     private Button accountsButton = new Button("ACCOUNTS");
     private Button transactionsButton = new Button("TRANSACTIONS");
     private Button appEventsButton = new Button("APPLICATION EVENTS");
-    private TransactionService transactionService = TransactionService.getInstance();
+    private TransactionService transactionService = new TransactionService();
     private Grid<TransactionDto> gridTransaction = new Grid<>(TransactionDto.class);
     private TextField filterTransactionsByCurrency = new TextField();
     private TextField filterTransactionsByDate = new TextField();

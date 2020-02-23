@@ -21,7 +21,7 @@ public class AdminAppEventsView extends VerticalLayout {
     private Button accountsButton = new Button("ACCOUNTS");
     private Button transactionsButton = new Button("TRANSACTIONS");
     private Button appEventsButton = new Button("APPLICATION EVENTS");
-    private AppEventService appEventService = AppEventService.getInstance();
+    private AppEventService appEventService = new AppEventService();
     private Grid<AppEventDto> gridAppEvent = new Grid<>(AppEventDto.class);
     private TextField filterEventsByType= new TextField();
     private TextField filterEventsByDate = new TextField();
