@@ -32,10 +32,10 @@ public class HomeView extends VerticalLayout {
         HorizontalLayout currencies = new HorizontalLayout(eurField, usdField, gbpField);
         add(adminButton, currencies);
         setSizeFull();
-        refreshCurrency();
+        refresh();
     }
 
-    public void refreshCurrency() {
+    public void refresh() {
         currencyService.getCurrencies();
         eurField.setValue(CurrencyService.EUR);
         usdField.setValue(CurrencyService.USD);
