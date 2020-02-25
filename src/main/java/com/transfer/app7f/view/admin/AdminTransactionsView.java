@@ -59,7 +59,7 @@ public class AdminTransactionsView extends VerticalLayout {
         Button addNewTransaction = new Button("Add new transaction",  VaadinIcon.PLUS_CIRCLE.create());
         addNewTransaction.addClickListener(event -> {
             gridTransaction.asSingleSelect().clear();
-            transactionAdminForm.saveTransactionButton.setVisible(true);
+            transactionAdminForm.sendTransactionButton.setVisible(true);
             transactionAdminForm.returnTransactionButton.setVisible(false);
             transactionAdminForm.deleteTransactionButton.setVisible(false);
             transactionAdminForm.updateTransactionButton.setVisible(false);
@@ -90,7 +90,7 @@ public class AdminTransactionsView extends VerticalLayout {
         refreshTransactions();
 
         gridTransaction.asSingleSelect().addValueChangeListener(event -> {
-            transactionAdminForm.saveTransactionButton.setVisible(false);
+            transactionAdminForm.sendTransactionButton.setVisible(false);
             transactionAdminForm.returnTransactionButton.setVisible(true);
             transactionAdminForm.deleteTransactionButton.setVisible(true);
             transactionAdminForm.updateTransactionButton.setVisible(true);

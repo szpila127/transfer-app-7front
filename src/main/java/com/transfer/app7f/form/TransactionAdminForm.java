@@ -20,7 +20,7 @@ public class TransactionAdminForm extends FormLayout {
     private ComboBox<String> currency = new ComboBox<>("Currency");
     private TextField accountOutId = new TextField("Account Out ID");
     private TextField accountInId = new TextField("Account In ID");
-    public Button saveTransactionButton = new Button("Save");
+    public Button sendTransactionButton = new Button("Send");
     public Button returnTransactionButton = new Button("Return");
     public Button updateTransactionButton = new Button("Update");
     public Button deleteTransactionButton = new Button("Delete");
@@ -33,8 +33,8 @@ public class TransactionAdminForm extends FormLayout {
 
     public TransactionAdminForm(AdminTransactionsView adminTransactionsView2) {
         currency.setItems(Currency.currencyString);
-        HorizontalLayout buttons = new HorizontalLayout(saveTransactionButton, returnTransactionButton, updateTransactionButton, deleteTransactionButton, cancelTransactionButton);
-        saveTransactionButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        HorizontalLayout buttons = new HorizontalLayout(sendTransactionButton, returnTransactionButton, updateTransactionButton, deleteTransactionButton, cancelTransactionButton);
+        sendTransactionButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         returnTransactionButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         amount.setClearButtonVisible(true);
         accountOutId.setClearButtonVisible(true);
@@ -42,7 +42,7 @@ public class TransactionAdminForm extends FormLayout {
         add(amount, currency, accountOutId, accountInId, buttons);
         binder.bindInstanceFields(this);
         adminTransactionsView = adminTransactionsView2;
-        saveTransactionButton.addClickListener(event -> saveTransaction());
+        sendTransactionButton.addClickListener(event -> saveTransaction());
         returnTransactionButton.addClickListener(event -> returnTransaction());
         updateTransactionButton.addClickListener(event -> updateTransaction());
         deleteTransactionButton.addClickListener(event -> deleteTransaction());
