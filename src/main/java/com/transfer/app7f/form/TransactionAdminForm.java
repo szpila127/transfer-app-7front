@@ -8,6 +8,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.BigDecimalField;
 import com.vaadin.flow.component.textfield.TextField;
@@ -24,6 +25,7 @@ public class TransactionAdminForm extends FormLayout {
     public Button updateTransactionButton = new Button("Update");
     public Button deleteTransactionButton = new Button("Delete");
     public Button cancelTransactionButton = new Button("Cancel");
+    Notification notification = new Notification();
     private Binder<TransactionDto> binder = new Binder<>(TransactionDto.class);
     public TransactionService transactionService = new TransactionService();
 
@@ -34,6 +36,9 @@ public class TransactionAdminForm extends FormLayout {
         HorizontalLayout buttons = new HorizontalLayout(saveTransactionButton, returnTransactionButton, updateTransactionButton, deleteTransactionButton, cancelTransactionButton);
         saveTransactionButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         returnTransactionButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        amount.setClearButtonVisible(true);
+        accountOutId.setClearButtonVisible(true);
+        accountInId.setClearButtonVisible(true);
         add(amount, currency, accountOutId, accountInId, buttons);
         binder.bindInstanceFields(this);
         adminTransactionsView = adminTransactionsView2;
@@ -42,6 +47,9 @@ public class TransactionAdminForm extends FormLayout {
         updateTransactionButton.addClickListener(event -> updateTransaction());
         deleteTransactionButton.addClickListener(event -> deleteTransaction());
         cancelTransactionButton.addClickListener(event -> setTransaction(null));
+
+        notification.setDuration(4000);
+        notification.setPosition(Notification.Position.MIDDLE);
     }
 
     private void returnTransaction() {
@@ -49,6 +57,8 @@ public class TransactionAdminForm extends FormLayout {
         transactionService.returnTransaction(transactionDto.getId());
         adminTransactionsView.refreshTransactions();
         setTransaction(null);
+        notification.setText("Transaction returned");
+        notification.open();
     }
 
     private void updateTransaction() {
@@ -63,6 +73,8 @@ public class TransactionAdminForm extends FormLayout {
         transactionService.save(transactionDto);
         adminTransactionsView.refreshTransactions();
         setTransaction(null);
+        notification.setText("Transaction completed");
+        notification.open();
     }
 
     private void deleteTransaction() {
@@ -70,6 +82,8 @@ public class TransactionAdminForm extends FormLayout {
         transactionService.delete(transactionDto.getId());
         adminTransactionsView.refreshTransactions();
         setTransaction(null);
+        notification.setText("Transaction deleted");
+        notification.open();
     }
 
     public void setTransaction(TransactionDto transaction) {

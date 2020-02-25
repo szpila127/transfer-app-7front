@@ -48,6 +48,8 @@ public class AdminUsersView extends VerticalLayout {
         Button addNewUser = new Button("Add new user", VaadinIcon.PLUS_CIRCLE.create());
         addNewUser.addClickListener(event -> {
             gridUser.asSingleSelect().clear();
+            userAdminForm.email.setEnabled(true);
+            userAdminForm.pesel.setEnabled(true);
             userAdminForm.saveUserButton.setVisible(true);
             userAdminForm.deleteUserButton.setVisible(false);
             userAdminForm.updateUserButton.setVisible(false);
@@ -77,6 +79,8 @@ public class AdminUsersView extends VerticalLayout {
         refreshUsers();
 
         gridUser.asSingleSelect().addValueChangeListener(event -> {
+            userAdminForm.email.setEnabled(false);
+            userAdminForm.pesel.setEnabled(false);
             userAdminForm.saveUserButton.setVisible(false);
             userAdminForm.deleteUserButton.setVisible(true);
             userAdminForm.updateUserButton.setVisible(true);

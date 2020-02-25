@@ -49,6 +49,7 @@ public class AdminAccountsView extends VerticalLayout {
         Button addNewAccount = new Button("Add new account",  VaadinIcon.PLUS_CIRCLE.create());
         addNewAccount.addClickListener(event -> {
             gridAccount.asSingleSelect().clear();
+            accountAdminForm.userId.setEnabled(true);
             accountAdminForm.saveAccountButton.setVisible(true);
             accountAdminForm.deleteAccountButton.setVisible(false);
             accountAdminForm.updateAccountButton.setVisible(false);
@@ -77,6 +78,7 @@ public class AdminAccountsView extends VerticalLayout {
         refreshAccounts();
 
         gridAccount.asSingleSelect().addValueChangeListener(event -> {
+            accountAdminForm.userId.setEnabled(false);
             accountAdminForm.saveAccountButton.setVisible(false);
             accountAdminForm.deleteAccountButton.setVisible(true);
             accountAdminForm.updateAccountButton.setVisible(true);
