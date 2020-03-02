@@ -6,15 +6,10 @@ import com.transfer.app7f.view.admin.AdminUsersView;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.html.NativeButton;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.validator.EmailValidator;
-import com.vaadin.flow.data.validator.StringLengthValidator;
 
 public class UserAdminForm extends FormLayout {
 

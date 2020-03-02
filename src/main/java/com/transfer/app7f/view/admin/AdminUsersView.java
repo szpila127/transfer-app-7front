@@ -16,7 +16,7 @@ import com.vaadin.flow.router.Route;
 @Route(value = "admin/users")
 public class AdminUsersView extends VerticalLayout {
 
-    private Button homeButton = new Button("HOME",  VaadinIcon.HOME.create());
+    private Button homeButton = new Button("HOME", VaadinIcon.HOME.create());
     private Button usersButton = new Button("USERS");
     private Button accountsButton = new Button("ACCOUNTS");
     private Button transactionsButton = new Button("TRANSACTIONS");

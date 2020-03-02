@@ -16,7 +16,7 @@ import com.vaadin.flow.router.Route;
 @Route(value = "admin/transactions")
 public class AdminTransactionsView extends VerticalLayout {
 
-    private Button homeButton = new Button("HOME",  VaadinIcon.HOME.create());
+    private Button homeButton = new Button("HOME", VaadinIcon.HOME.create());
     private Button usersButton = new Button("USERS");
     private Button accountsButton = new Button("ACCOUNTS");
     private Button transactionsButton = new Button("TRANSACTIONS");
@@ -56,7 +56,7 @@ public class AdminTransactionsView extends VerticalLayout {
         homeButton.addClickListener(event -> {
             homeButton.getUI().ifPresent(ui -> ui.navigate(""));
         });
-        Button addNewTransaction = new Button("Add new transaction",  VaadinIcon.PLUS_CIRCLE.create());
+        Button addNewTransaction = new Button("Add new transaction", VaadinIcon.PLUS_CIRCLE.create());
         addNewTransaction.addClickListener(event -> {
             gridTransaction.asSingleSelect().clear();
             transactionAdminForm.sendTransactionButton.setVisible(true);

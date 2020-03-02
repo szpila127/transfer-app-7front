@@ -12,7 +12,7 @@ import com.vaadin.flow.router.Route;
 @Route(value = "")
 public class HomeView extends VerticalLayout {
 
-    private Button adminButton = new Button("ADMIN",  VaadinIcon.KEY.create());
+    private Button adminButton = new Button("ADMIN", VaadinIcon.KEY.create());
     private NumberField eurField = new NumberField();
     private NumberField usdField = new NumberField();
     private NumberField gbpField = new NumberField();

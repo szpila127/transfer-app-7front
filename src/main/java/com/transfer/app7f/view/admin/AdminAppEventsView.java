@@ -16,14 +16,14 @@ import com.vaadin.flow.router.Route;
 @Route(value = "admin/app-events")
 public class AdminAppEventsView extends VerticalLayout {
 
-    private Button homeButton = new Button("HOME",  VaadinIcon.HOME.create());
+    private Button homeButton = new Button("HOME", VaadinIcon.HOME.create());
     private Button usersButton = new Button("USERS");
     private Button accountsButton = new Button("ACCOUNTS");
     private Button transactionsButton = new Button("TRANSACTIONS");
     private Button appEventsButton = new Button("APPLICATION EVENTS");
     private AppEventService appEventService = new AppEventService();
     private Grid<AppEventDto> gridAppEvent = new Grid<>(AppEventDto.class);
-    private TextField filterEventsByType= new TextField();
+    private TextField filterEventsByType = new TextField();
     private TextField filterEventsByDate = new TextField();
     private AppEventAdminForm appEventAdminForm = new AppEventAdminForm(this);
 
@@ -72,6 +72,7 @@ public class AdminAppEventsView extends VerticalLayout {
             appEventAdminForm.setAppEvent(gridAppEvent.asSingleSelect().getValue());
         });
     }
+
     private void updateEventsByDate() {
         gridAppEvent.setItems(appEventService.filterByDate(filterEventsByDate.getValue()));
     }

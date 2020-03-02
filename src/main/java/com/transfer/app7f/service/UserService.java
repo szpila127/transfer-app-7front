@@ -6,7 +6,6 @@ import com.transfer.app7f.domain.dto.UserDto;
 import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -58,7 +57,7 @@ public class UserService {
         String url = AppConfig.backendEndpoint + "user";
         try {
             restTemplate.postForObject(url, (userDto), Void.class);
-        } catch (RestClientException e ) {
+        } catch (RestClientException e) {
             LOGGER.error("" + e);
         }
     }

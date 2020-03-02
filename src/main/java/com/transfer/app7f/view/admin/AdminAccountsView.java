@@ -16,7 +16,7 @@ import com.vaadin.flow.router.Route;
 @Route(value = "admin/accounts")
 public class AdminAccountsView extends VerticalLayout {
 
-    private Button homeButton = new Button("HOME",  VaadinIcon.HOME.create());
+    private Button homeButton = new Button("HOME", VaadinIcon.HOME.create());
     private Button usersButton = new Button("USERS");
     private Button accountsButton = new Button("ACCOUNTS");
     private Button transactionsButton = new Button("TRANSACTIONS");
@@ -46,7 +46,7 @@ public class AdminAccountsView extends VerticalLayout {
         homeButton.addClickListener(event -> {
             homeButton.getUI().ifPresent(ui -> ui.navigate(""));
         });
-        Button addNewAccount = new Button("Add new account",  VaadinIcon.PLUS_CIRCLE.create());
+        Button addNewAccount = new Button("Add new account", VaadinIcon.PLUS_CIRCLE.create());
         addNewAccount.addClickListener(event -> {
             gridAccount.asSingleSelect().clear();
             accountAdminForm.userId.setEnabled(true);
