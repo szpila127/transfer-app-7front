@@ -9,8 +9,6 @@ import java.util.Collections;
 
 public class JsonBuilder<T> {
 
-    private T dto;
-
     public HttpEntity<String> prepareJson(T dto) {
         Gson gson = new Gson();
         String jsonContent = gson.toJson(dto);
