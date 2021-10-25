@@ -16,6 +16,7 @@ public class HomeView extends VerticalLayout {
     private NumberField eurField = new NumberField();
     private NumberField usdField = new NumberField();
     private NumberField gbpField = new NumberField();
+    private NumberField chfField = new NumberField();
     private CurrencyService currencyService = new CurrencyService();
 
     public HomeView() {
@@ -29,7 +30,9 @@ public class HomeView extends VerticalLayout {
         usdField.setReadOnly(true);
         gbpField.setLabel("GBP");
         gbpField.setReadOnly(true);
-        HorizontalLayout currencies = new HorizontalLayout(eurField, usdField, gbpField);
+        chfField.setLabel("CHF");
+        chfField.setReadOnly(true);
+        HorizontalLayout currencies = new HorizontalLayout(eurField, usdField, gbpField, chfField);
         add(adminButton, currencies);
         setSizeFull();
         refresh();
@@ -40,5 +43,6 @@ public class HomeView extends VerticalLayout {
         eurField.setValue(CurrencyService.EUR);
         usdField.setValue(CurrencyService.USD);
         gbpField.setValue(CurrencyService.GBP);
+        chfField.setValue(CurrencyService.CHF);
     }
 }
