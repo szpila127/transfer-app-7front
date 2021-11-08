@@ -66,9 +66,11 @@ public class AdminTransactionsView extends VerticalLayout {
             transactionAdminForm.updateTransactionButton.setVisible(false);
             transactionAdminForm.setTransaction(new TransactionDto());
         });
+        Button download = new Button("CSV with data", VaadinIcon.DOWNLOAD.create());
+
 
         HorizontalLayout filterFieldsTransaction = new HorizontalLayout(
-                filterTransactionsByCurrency, filterTransactionsByDate, filterTransactionsByAccountOutId, filterTransactionsByAccountInId, addNewTransaction);
+                filterTransactionsByCurrency, filterTransactionsByDate, filterTransactionsByAccountOutId, filterTransactionsByAccountInId, addNewTransaction, download);
 
         usersButton.addClickListener(event -> {
             homeButton.getUI().ifPresent(ui -> ui.navigate("admin/users"));
