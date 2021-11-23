@@ -55,9 +55,8 @@ public class AdminUsersView extends VerticalLayout {
             userAdminForm.updateUserButton.setVisible(false);
             userAdminForm.setUser(new UserDto());
         });
-        Button download = new Button("CSV with data", VaadinIcon.DOWNLOAD.create());
 
-        HorizontalLayout filterFieldsUser = new HorizontalLayout(filterUsersByEmail, filterUsersByPesel, addNewUser, download);
+        HorizontalLayout filterFieldsUser = new HorizontalLayout(filterUsersByEmail, filterUsersByPesel, addNewUser);
 
         usersButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         accountsButton.addClickListener(event -> {

@@ -55,9 +55,8 @@ public class AdminAccountsView extends VerticalLayout {
             accountAdminForm.updateAccountButton.setVisible(false);
             accountAdminForm.setAccount(new AccountDto());
         });
-        Button download = new Button("CSV with data", VaadinIcon.DOWNLOAD.create());
 
-        HorizontalLayout filterFieldsAccount = new HorizontalLayout(filterAccountsById, filterAccountsByCurrency, addNewAccount, download);
+        HorizontalLayout filterFieldsAccount = new HorizontalLayout(filterAccountsById, filterAccountsByCurrency, addNewAccount);
 
         usersButton.addClickListener(event -> {
             homeButton.getUI().ifPresent(ui -> ui.navigate("admin/users"));
