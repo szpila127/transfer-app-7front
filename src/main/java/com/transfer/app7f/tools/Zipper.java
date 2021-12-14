@@ -16,7 +16,7 @@ import java.util.zip.ZipOutputStream;
 public class Zipper {
     private static final Logger log = LoggerFactory.getLogger(Zipper.class);
 
-    public byte[] zip(List<FileEntry> fileEntries) throws IOException {
+    public static byte[] zip(List<FileEntry> fileEntries) throws IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try (ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream);
              CSVPrinter printer = new CSVPrinter(new OutputStreamWriter(zipOutputStream),
