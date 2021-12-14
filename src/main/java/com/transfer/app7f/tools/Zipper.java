@@ -2,7 +2,6 @@ package com.transfer.app7f.tools;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
-import org.apache.commons.csv.QuoteMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +23,7 @@ public class Zipper {
 
             for (FileEntry entry : fileEntries) {
                 ZipEntry zipEntry = new ZipEntry(entry.fileName);
-                try{
+                try {
                     zipOutputStream.putNextEntry(zipEntry);
                     for (String context : entry.getContext()) {
                         printer.printRecord(context);
