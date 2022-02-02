@@ -16,7 +16,7 @@ import com.vaadin.flow.router.Route;
 @Route(value = "admin/users")
 public class AdminUsersView extends VerticalLayout {
 
-    private Button homeButton = new Button("HOME", VaadinIcon.HOME.create());
+    private final Button homeButton = new Button("HOME", VaadinIcon.HOME.create());
     private Button usersButton = new Button("USERS");
     private Button accountsButton = new Button("ACCOUNTS");
     private Button transactionsButton = new Button("TRANSACTIONS");
@@ -48,9 +48,8 @@ public class AdminUsersView extends VerticalLayout {
         gridUser.getColumnByKey("id").setHeader("ID");
 
         homeButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        homeButton.addClickListener(event -> {
-            homeButton.getUI().ifPresent(ui -> ui.navigate(""));
-        });
+        homeButton.addClickListener(event -> homeButton.getUI().ifPresent(ui -> ui.navigate("")));
+
         Button addNewUser = new Button("Add new user", VaadinIcon.PLUS_CIRCLE.create());
         addNewUser.addClickListener(event -> {
             gridUser.asSingleSelect().clear();
