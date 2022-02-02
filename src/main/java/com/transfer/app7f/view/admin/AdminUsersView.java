@@ -23,11 +23,17 @@ public class AdminUsersView extends VerticalLayout {
     private Button appEventsButton = new Button("APPLICATION EVENTS");
     private UserService userService = new UserService();
     private Grid<UserDto> gridUser = new Grid<>(UserDto.class);
+    private TextField filterUsersById = new TextField();
     private TextField filterUsersByEmail = new TextField();
     private TextField filterUsersByPesel = new TextField();
     private UserAdminForm userAdminForm = new UserAdminForm(this);
 
     public AdminUsersView() {
+        filterUsersById.setPlaceholder("Filter by ID...");
+        filterUsersById.setClearButtonVisible(true);
+        filterUsersById.setValueChangeMode(ValueChangeMode.EAGER);
+        filterUsersById.addValueChangeListener(e -> updateUserById());
+
         filterUsersByEmail.setPlaceholder("Filter by email...");
         filterUsersByEmail.setClearButtonVisible(true);
         filterUsersByEmail.setValueChangeMode(ValueChangeMode.EAGER);
@@ -56,7 +62,7 @@ public class AdminUsersView extends VerticalLayout {
             userAdminForm.setUser(new UserDto());
         });
 
-        HorizontalLayout filterFieldsUser = new HorizontalLayout(filterUsersByEmail, filterUsersByPesel, addNewUser);
+        HorizontalLayout filterFieldsUser = new HorizontalLayout(filterUsersById, filterUsersByEmail, filterUsersByPesel, addNewUser);
 
         usersButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         accountsButton.addClickListener(event -> {
@@ -86,6 +92,10 @@ public class AdminUsersView extends VerticalLayout {
             userAdminForm.updateUserButton.setVisible(true);
             userAdminForm.setUser(gridUser.asSingleSelect().getValue());
         });
+    }
+
+    private void updateUserById() {
+        gridUser.setItems(userService.fillterById(filterUsersById.getValue()));
     }
 
     private void updateUserByEmail() {

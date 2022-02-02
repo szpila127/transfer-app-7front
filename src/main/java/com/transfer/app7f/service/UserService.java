@@ -37,17 +37,21 @@ public class UserService {
                 .orElse(new ArrayList<>()));
     }
 
+    public List<UserDto> fillterById(String id) {
+         return userDtos.stream()
+                .filter(userDto -> Objects.equals(userDto.getId(), new Long(id)))
+                .collect(Collectors.toList());
+    }
+
     public List<UserDto> fillterByEmail(String string) {
-        string = string.toLowerCase();
-        String finalString = string;
+        String finalString = string.toLowerCase();
         return userDtos.stream()
                 .filter(userDto -> userDto.getEmail().contains(finalString))
                 .collect(Collectors.toList());
     }
 
     public List<UserDto> fillterByPesel(String string) {
-        string = string.toUpperCase();
-        String finalString = string;
+        String finalString = string.toUpperCase();
         return userDtos.stream()
                 .filter(userDto -> userDto.getPesel().contains(finalString))
                 .collect(Collectors.toList());

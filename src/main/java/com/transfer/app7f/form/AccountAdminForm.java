@@ -2,7 +2,9 @@ package com.transfer.app7f.form;
 
 import com.transfer.app7f.domain.Currency;
 import com.transfer.app7f.domain.dto.AccountDto;
+import com.transfer.app7f.domain.dto.UserDto;
 import com.transfer.app7f.service.AccountService;
+import com.transfer.app7f.service.UserService;
 import com.transfer.app7f.view.admin.AdminAccountsView;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -13,6 +15,8 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.BigDecimalField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+
+import java.util.Set;
 
 public class AccountAdminForm extends FormLayout {
 
@@ -26,6 +30,7 @@ public class AccountAdminForm extends FormLayout {
     Notification notification = new Notification();
     private Binder<AccountDto> binder = new Binder<>(AccountDto.class);
     private AccountService accountService = new AccountService();
+    private UserService userService = new UserService();
 
     private AdminAccountsView adminAccountsView;
 
@@ -83,4 +88,8 @@ public class AccountAdminForm extends FormLayout {
             balance.focus();
         }
     }
+
+//    private boolean userExist(String id) {
+//        if (userService.getUserDtos().contains(new UserDto().);
+//    }
 }
