@@ -55,6 +55,7 @@ public class AdminAccountsView extends VerticalLayout {
             accountAdminForm.updateAccountButton.setVisible(false);
             accountAdminForm.setAccount(new AccountDto());
         });
+
         HorizontalLayout filterFieldsAccount = new HorizontalLayout(filterAccountsById, filterAccountsByCurrency, addNewAccount);
 
         usersButton.addClickListener(event -> {

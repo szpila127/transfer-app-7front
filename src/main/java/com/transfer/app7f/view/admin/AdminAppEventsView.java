@@ -45,7 +45,10 @@ public class AdminAppEventsView extends VerticalLayout {
         homeButton.addClickListener(event -> {
             homeButton.getUI().ifPresent(ui -> ui.navigate(""));
         });
-        HorizontalLayout filterFields = new HorizontalLayout(filterEventsByDate, filterEventsByType);
+
+        Button download =new Button("CSV with data", VaadinIcon.DOWNLOAD.create());
+
+        HorizontalLayout filterFields = new HorizontalLayout(filterEventsByDate, filterEventsByType, download);
 
         usersButton.addClickListener(event -> {
             homeButton.getUI().ifPresent(ui -> ui.navigate("admin/users"));

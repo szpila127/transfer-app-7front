@@ -32,8 +32,7 @@ public class AppEventService {
     }
 
     public List<AppEventDto> filterByEvent(String string) {
-        string = string.toUpperCase();
-        String finalString = string;
+        String finalString = string.toUpperCase();
         return appEventDtos.stream()
                 .filter(appEventDto -> appEventDto.getEvent().contains(finalString))
                 .collect(Collectors.toList());

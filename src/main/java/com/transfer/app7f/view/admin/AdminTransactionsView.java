@@ -51,6 +51,7 @@ public class AdminTransactionsView extends VerticalLayout {
         filterTransactionsByAccountInId.addValueChangeListener(e -> updateTransactionsByAccounyInId());
 
         gridTransaction.setColumns("id", "amount", "currency", "date", "accountOutId", "accountInId");
+
         gridTransaction.getColumnByKey("id").setHeader("ID");
         homeButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         homeButton.addClickListener(event -> {
